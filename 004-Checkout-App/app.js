@@ -29,9 +29,13 @@ main.addEventListener("click", (e) => {
         
     } 
 
-    else if(e.target.classList.contains("fa-trash-can")) {
+    else if (e.target.classList.contains("fa-trash-can")) {
+        const productRow = e.target.closest(".main__product");
+        if (confirm("Product removed from cart.") == true) {
+          productRow.remove();
+        }
+        else {}
+      }
 
-       e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove()
-        
-    } 
+   
 })
