@@ -1,5 +1,3 @@
-//**********variables
-
 //************FUNCTIONS */
 
 function updateAmount () {
@@ -18,13 +16,6 @@ function finishOrder() {
     tax.innerText = (Number(selectedProducts.innerText) * 0.18).toFixed(2);
     total.innerText = (Number(shipping.innerText) + Number(tax.innerText) + Number(selectedProducts.innerText)).toFixed(2);
 }
-
-
-
-//**********selector
-
-
-//const main = document.querySelector(".main__product")4
 
 const main = document.getElementById("products-preview")
 const nav = document.querySelector("nav")
@@ -65,19 +56,15 @@ nav.addEventListener("click",(e) => {
             i.remove();
             selectedProducts.innerText = updateAmount()
             finishOreder();
-            amountOfProducts.innerText = 0;}
-            
+            amountOfProducts.innerText = 0;}            
        }
-              
-       
+       document.getElementById("product-painel").querySelector(".main__title").remove();         
     }
     else if (e.target.classList.contains("fa-trash-can") && amountOfProducts.innerText == 0){
         alert("The cart is already empty!");
        }
 
-       else{}
-
-   
+       else{}   
 })
 
 function updateAmount () {
