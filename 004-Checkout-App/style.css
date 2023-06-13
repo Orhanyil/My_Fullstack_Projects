@@ -264,4 +264,6 @@ span {
 
 .footer{
   align-items: center;
+  text-align: center;
+  margin: auto;
 }
