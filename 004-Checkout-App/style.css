@@ -261,3 +261,7 @@ span {
     width: 100%;
   }
 }
+
+.footer{
+  align-items: center;
+}
