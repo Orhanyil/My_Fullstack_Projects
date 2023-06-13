@@ -57,7 +57,7 @@ main.addEventListener("click", (e) => {
     finishOreder()
 })
 nav.addEventListener("click",(e) => {
-    if (e.target.classList.contains("fa-trash-can")){
+    if (e.target.classList.contains("fa-trash-can") && amountOfProducts.innerText>0){
         document.querySelectorAll(".main__product");
         if (confirm("are you sure???") == true){
             for(let i of document.querySelectorAll(".main__product") )
@@ -65,11 +65,19 @@ nav.addEventListener("click",(e) => {
             i.remove();
             selectedProducts.innerText = updateAmount()
             finishOreder();
-            amountOfProducts.innerText --;}
+            amountOfProducts.innerText = 0;}
             
        }
-       else{}
+              
+       
     }
+    else if (e.target.classList.contains("fa-trash-can") && amountOfProducts.innerText == 0){
+        alert("The cart is already empty!");
+       }
+
+       else{}
+
+   
 })
 
 function updateAmount () {
@@ -85,3 +93,4 @@ function finishOreder() {
     tax.innerText = (Number(selectedProducts.innerText) * 0.18).toFixed(2);
     total.innerText = (Number(shipping.innerText) + Number(tax.innerText) + Number(selectedProducts.innerText)).toFixed(2);
 }
+
