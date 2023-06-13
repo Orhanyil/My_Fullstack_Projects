@@ -59,17 +59,19 @@ main.addEventListener("click", (e) => {
 nav.addEventListener("click",(e) => {
     if (e.target.classList.contains("fa-trash-can")){
         document.querySelectorAll(".main__product");
-        for(let i of document.querySelectorAll(".main__product") ){
+        if (confirm("are you sure???") == true){
+            for(let i of document.querySelectorAll(".main__product") )
+            {
             i.remove();
             selectedProducts.innerText = updateAmount()
             finishOreder();
-            amountOfProducts.innerText --;
+            amountOfProducts.innerText --;}
+            
        }
+       else{}
     }
 })
-// function subTotal(position) {
-//     e.target.closest(".main__product").querySelector(".main__product-line-price").innerText = (e.target.{position}.innerText * e.target.closest(".main__product-info").querySelector(".dollar").innerText).toFixed(2)
-// }
+
 function updateAmount () {
     let totalAmount = document.getElementsByClassName("main__product-line-price");
     let sum = 0;
