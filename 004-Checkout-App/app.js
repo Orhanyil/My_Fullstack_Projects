@@ -81,3 +81,10 @@ function finishOreder() {
     total.innerText = (Number(shipping.innerText) + Number(tax.innerText) + Number(selectedProducts.innerText)).toFixed(2);
 }
 
+const trash = document.querySelector(".fa-regular.fa-trash-can")
+trash.addEventListener("mouseover", () => {
+    trash.style.color="black"
+})
+trash.addEventListener("mouseout", () => {
+    trash.style.color="red"
+})
