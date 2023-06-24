@@ -10,7 +10,7 @@ function Header() {
     <header>
       {/*  JSX */}
       <h1>Header</h1>
-      <p>CW</p>
+      <p>Orhan</p>
     </header>
   )
 }
