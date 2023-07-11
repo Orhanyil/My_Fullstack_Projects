@@ -1,8 +1,16 @@
-import React from 'react'
+import PlayerCard from '../components/playerCard/PlayerCard'
+import {data} from "../hjelper/data";
 
 const CardContainer = () => {
   return (
-    <div>CardContainer</div>
+    <div>
+        <h1 className='mt-4'>CardContainer</h1>
+        <div>{data.map((item) => (
+            <PlayerCard key={item.name} {...item}/>
+))}</div>
+        
+        
+    </div>
   )
 }
 

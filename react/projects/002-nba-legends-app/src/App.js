@@ -1,4 +1,5 @@
 import './App.css';
+import CardContainer from './components/CardContainer';
 import Header from './components/headers/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,7 +9,8 @@ function App() {
 
     <div className="App">
       <Header/>
-      
+      <CardContainer/>
+    
     </div>
   );
 }
