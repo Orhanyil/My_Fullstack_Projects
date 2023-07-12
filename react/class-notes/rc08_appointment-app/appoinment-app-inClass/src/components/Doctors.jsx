@@ -2,10 +2,17 @@ import Container from "react-bootstrap/Container"
 import {doctorData} from "../helper/data"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import AddModal from "./AddModal"
+import { useState } from "react"
 
 const Doctors = () => {
 
-  console.log(doctorData)
+  const [show, setShow] = useState(false);
+
+  
+  const handleShow = () => setShow(true);
+
+  const handleImgClick= () => {handleShow(true)}
 
   return (
     <Container className="p-2">
@@ -14,14 +21,14 @@ const Doctors = () => {
       </h3>
       <Row>
       {doctorData.map(({id, img, dep, name})=> (
-        <Col xs={12} sm={6} md={4} lg={3}>
-        <img src={img} alt="img" className="img-thumbnail doctor-img" />
+        <Col xs={12} sm={6} md={4} lg={3} key={id}>
+        <img src={img} alt="img" className="img-thumbnail doctor-img" onClick={handleImgClick}/>
         <h5>{name}</h5>
         <h6>{dep}</h6>
         </Col>
       ))}
       </Row>
-    
+    <AddModal show={show} handleClose={()=> setShow(false)}/>
     </Container>
   )
 }
