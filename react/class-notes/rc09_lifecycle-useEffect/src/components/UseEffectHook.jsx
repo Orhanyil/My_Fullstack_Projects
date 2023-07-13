@@ -56,6 +56,19 @@ const UseEffectHook = () => {
               //? Update i kullanirken dikkatli olmaliyiz cunku sonsuz donguye girme riski vardir.
               //? Update her renderden sonra calisir. sonsuz donguye girerse "count" u hemen silip sonsuz donguyu durdurmaliyiz. 
 
+  
+  const fetchData = () => {
+    console.log("Data Fetch started")
+  }
+
+  useEffect(() => {
+      const timer = setInterval(fetchData, 1000)
+    return () => {
+          clearInterval(timer)
+          console.log("componentWillUNmount")
+    }
+  }, []);
+
   const handleInc = () => {
     setCount(count + 1)
   }
