@@ -1,10 +1,47 @@
-import { useState } from "react"
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const EditTutorial = ({ editItem }) => {
-  const { id, description: newDescription, title: newTitle } = editItem
+const EditTutorial = ({ editItem, getTutorials }) => {
+  console.log(editItem);
 
-  const [title, setTitle] = useState(newTitle)
-  const [description, setDescription] = useState(newDescription)
+  const { id, description: oldDescription, title: oldTitle } = editItem;
+  console.log("old", oldTitle);
+  console.log("old", oldDescription);
+  //? https://react.dev/reference/react/useState#usestate
+  //! State degiskeninin degeri, 1.render ile initialState
+  //! parametresinin ilk degerini alir. Dolayisiyle bu durumda
+  //! prop'tan gelen ilk deger state'e aktarilir.
+  //! Sonradan degisen props degerleri useState'e aktarilmaz.
+  //! Eger props'tan gelen degerleri her degisimde useState'e
+  //! aktarmak istersek useEffect hook'unu componentDidUpdate
+  //! gibi kullanabiriz.
+  const [title, setTitle] = useState(oldTitle);
+  const [description, setDescription] = useState(oldDescription);
+
+  //? componentDidUpdate
+  useEffect(() => {
+    setTitle(oldTitle);
+    setDescription(oldDescription);
+    //? oldTitle veya oldDescriptiion her degistiginde local title ve description state'lerimizi guncelliyoruz.
+  }, [oldTitle, oldDescription]);
+
+  console.log(title); //ilk render da undefined
+  console.log(description);
+
+  const editTutor = async tutor => {
+    const BASE_URL = "https://tutorial-api.fullstack.clarusway.com/tutorials";
+
+    try {
+      await axios.put(`${BASE_URL}/${id}/`, tutor);
+    } catch (error) {
+      console.log(error);
+    }
+    getTutorials();
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    editTutor({ title, description });
+  };
 
   return (
     <div
@@ -12,8 +49,7 @@ const EditTutorial = ({ editItem }) => {
       id="open-modal"
       tabIndex={-1}
       aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -26,13 +62,13 @@ const EditTutorial = ({ editItem }) => {
               data-bs-dismiss="modal"
               aria-label="Close"
               onClick={() => {
-                setDescription("")
-                setTitle("")
+                setDescription("");
+                setTitle("");
               }}
             />
           </div>
           <div className="modal-body">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="title" className="form-label">
                   Title
@@ -43,7 +79,7 @@ const EditTutorial = ({ editItem }) => {
                   id="title"
                   placeholder="Enter your title"
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={e => setTitle(e.target.value)}
                   required
                 />
               </div>
@@ -57,13 +93,16 @@ const EditTutorial = ({ editItem }) => {
                   id="desc"
                   placeholder="Enter your Description"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={e => setDescription(e.target.value)}
                   required
                 />
               </div>
 
               <div className="text-end">
-                <button type="submit" className="btn btn-danger">
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  data-bs-dismiss="modal">
                   Submit
                 </button>
               </div>
@@ -72,7 +111,7 @@ const EditTutorial = ({ editItem }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditTutorial
+export default EditTutorial;
