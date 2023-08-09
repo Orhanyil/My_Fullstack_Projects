@@ -1,31 +1,35 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import AppRouter from "./router/AppRouter";
-import { grey, blueGrey } from "@mui/material/colors";
-import { Provider } from "react-redux";
-import store from "./app/store";
-import { ToastContainer } from "react-toastify";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: grey["900"],
-      },
-      secondary: {
-        main: blueGrey["900"],
-      },
-    },
-  });
+  const [count, setCount] = useState(0)
+
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <AppRouter />
-        </Provider>
-        <ToastContainer />
-      </ThemeProvider>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
