@@ -8,9 +8,27 @@ import { Link, useNavigate } from "react-router-dom"
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
 import { Button } from "@mui/material"
+import {Formik, Form} from 'formik'
+import { object, string } from 'yup';
+import { login } from "../service/authApiCall"
+
 
 const Login = () => {
   const navigate = useNavigate()
+
+  //?harici validasyon semasi
+  
+  let loginSchema = object({
+    email: string().email("Enter a valid email please!").required("Email is required!"),
+    password: string().required("Password is required!")
+    .min(8, "At least 8 characters must be entered!")
+    .max(16, "At most 16 characters must be entered!")
+    .matches(/\d+/, "At least a number must be entered!")
+    .matches(/[a-z]/, "At least a lowercase must be entered!")
+    .matches(/[A-Z]/, "At least a lowercase must be entered!")
+    .matches(/[!,?{}><%&$#£+-.]/, "At least a lowercase must be entered!")
+
+  });
 
   return (
     <Container maxWidth="lg">
@@ -49,28 +67,54 @@ const Login = () => {
             Login
           </Typography>
 
-          <Box
-            component="form"
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-          >
-            <TextField
-              label="Email"
-              name="email"
-              id="email"
-              type="email"
-              variant="outlined"
-            />
-            <TextField
-              label="password"
-              name="password"
-              id="password"
-              type="password"
-              variant="outlined"
-            />
-            <Button variant="contained" type="submit">
-              Submit
-            </Button>
-          </Box>
+            <Formik
+              initialValues={{email:"",password:""}}
+              validationSchema={loginSchema}
+              onSubmit={(values, actions) => {
+                //TODO login(values) POST islemi
+                login(values)
+                actions.resetForm()
+                actions.setSubmitting(false)
+              }}
+              >
+              {({handleChange, handleBlur, values, touched, errors}) => (
+                <Form>
+                <Box
+                sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+              >
+                <TextField
+                  label="Email"
+                  name="email"
+                  id="email"
+                  type="email"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={errors.email}
+                />
+                <TextField
+                  label="password"
+                  name="password"
+                  id="password"
+                  type="password"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={errors.password}
+                />
+                <Button variant="contained" type="submit">
+                  Submit
+                </Button>
+              </Box>
+              </Form>
+              )
+
+              }
+            </Formik>          
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/register">Do you have not an account?</Link>
