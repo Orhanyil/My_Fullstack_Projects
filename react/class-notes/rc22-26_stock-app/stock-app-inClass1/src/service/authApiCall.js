@@ -1,12 +1,12 @@
 import axios from "axios"
-import {toastErrorNotify, toastSuccessNotify} from ""
+//import {toastErrorNotify, toastSuccessNotify} from ""
 
-export const login = async() => {
-    const BASE_URL ="https://14103.fullstack.clarusway.com/"
+export const login = async(userData) => {
+    const BASE_URL ="https://14103.fullstack.clarusway.com"
     try {
      const {data} = await axios.post(`${BASE_URL}/account/auth/login/`, userData)
         console.log(data)
-        toastSuccessNotify("Login is success")
+        //toastSuccessNotify("Login is success")
     } catch (error) {
         console.log(error)
     }
